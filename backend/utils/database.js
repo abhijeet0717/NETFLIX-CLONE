@@ -6,10 +6,10 @@ dotenv.config({
 })
 
 const databaseConnection = () => {
-    mongoose.connect('mongodb+srv://abhijeetmahto17:netflix@cluster0.03liere.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0').then(()=>{
+    mongoose.connect('mongodb+srv://abhijeetmahto17:Abhijeet.17@errorfree.e5gjz.mongodb.net/').then(()=>{
         console.log("mongodb connected successfully");
     }).catch((error)=>{
-        console.log(error);
+        console.log(error); 
     })
 };
 export default databaseConnection;

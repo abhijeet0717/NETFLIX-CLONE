@@ -34,14 +34,31 @@ const Login = () => {
                     },
                     withCredentials:true
                 });
-                if(res.data.success){
+                 //<----CHAT GPT START----------
+                // Check if res.data exists before accessing it
+                if (res.data && res.data.success) {
                     toast.success(res.data.message);
+                    dispatch(setUser(res.data.user));
+                    navigate("/browse");
                 }
-                dispatch(setUser(res.data.user));
-                navigate("/browse");
+                //--------CHAT GPT END----------->/
+
+                //Previous Code below
+                // if(res.data.success){
+                //     toast.success(res.data.message);
+                // }
+                // dispatch(setUser(res.data.user));
+                // navigate("/browse");
             } catch (error) {
-                toast.error(error.response.data.message);
-                console.log(error);
+                //<----CHAT GPT START----------
+                // Check for error response and error response data before accessing
+                const errorMessage = error.response?.data?.message || "An unexpected error occurred";
+                toast.error(errorMessage);
+                console.error("Error during authentication:", error);
+                //--------CHAT GPT END----------->/
+
+                // toast.error(error.response.data.message);
+                // console.log(error);
             } finally {
                 dispatch(setLoading(false));
             }
@@ -82,7 +99,7 @@ const Login = () => {
                 <h1 className='text-3xl text-white mb-5 font-bold'>{isLogin ? "Login" : "Signup"}</h1>
                 <div className='flex flex-col'>
                     {
-                        !isLogin && <input value={fullName} onChange={(e)=>setFullName(e.target.value)} type='text' placeholder='Fullname' className='outline-none p-3 my-2 rounded-sm bg-gray-800 text-white' />
+                        !isLogin && <input value={fullName} onChange={(e)=>setFullName(e.target.value)} type='text' placeholder='Full Name' className='outline-none p-3 my-2 rounded-sm bg-gray-800 text-white' />
                     }
                     <input value={email} onChange={(e)=>setEmail(e.target.value)} type='email' placeholder='Email' className='outline-none p-3 my-2 rounded-sm bg-gray-800 text-white' />
                     <input value={password} onChange={(e)=>setPassword(e.target.value)} type='password' placeholder='Password' className='outline-none p-3 my-2 rounded-sm bg-gray-800 text-white' />
